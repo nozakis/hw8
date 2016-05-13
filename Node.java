@@ -1,4 +1,9 @@
-
+/**
+ * Class for a node to be used in a linked queue.
+ * 
+ * @author Sam Nozaki
+ * @param <T> variable type
+ */
 public class Node<T> {
 	private T data;
 	private Node<T> next;

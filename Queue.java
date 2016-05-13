@@ -1,4 +1,9 @@
-
+/**
+ * A class for a linked queue.
+ * 
+ * @author Sam Nozaki
+ * @param <T> variable type
+ */
 public class Queue<T> {
 	private int length;
 	private Node<T> first;

@@ -6,6 +6,12 @@
  *
  * java -m file.txt
  *   (for merge sort)
+ *   
+ * java -q file.txt
+ *   (for quick sort)
+ *   
+ * java -r file.txt
+ *   (for radix sort)
  *
  * @author Andy Exley
  *****************/
