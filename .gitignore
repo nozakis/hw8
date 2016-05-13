@@ -50,3 +50,5 @@ Temporary Items
 .project
 .classpath
 *.class
+test.txt
+*.txt
