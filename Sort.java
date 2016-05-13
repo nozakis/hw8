@@ -193,6 +193,13 @@ public class Sort {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param arr array to be sorted
+	 * @param min minimum index in the range to be sorted 
+	 * @param max maximum index in the range to be sorted
+	 * @return the index where arr will be partitioned
+	 */
 	private static int partition(String[] arr, int min, int max) {
 		String partitionElement;
 		int l, r;
@@ -206,7 +213,7 @@ public class Sort {
 		r = max;
 		
 		while(l < r) {
-			// search for an element > partitionElement
+			// search for an element => partitionElement
 			while(l < r && arr[l].compareTo(partitionElement) <= 0) {
 				l++;
 			}
@@ -218,20 +225,25 @@ public class Sort {
 			
 			// swap elements
 			if(l < r) {
-				int tmp = l;
-				l = r;
-				r = tmp;
+				String tmp = arr[l];
+				arr[l] = arr[r];
+				arr[r] = tmp;
 			}
 		}
 		
 		// replace the partition element
-		int tmp = min;
-		min = r;
-		r = tmp;
+		String tmp = arr[min];
+		arr[min] = arr[r];
+		arr[r] = tmp;
 		return r;
 	}
 
 	public static void radixSort(String[] arr) {
-		
+		int[] intArr = new int[arr.length];
+		Queue<Integer>[] digitQueues = (Queue<Integer>[])(new Queue[10]);
+		// convert string array to integers
+		for(int i = 0; i < arr.length; i++) {
+			intArr[i] = Integer.valueOf(arr[i]);
+		}
 	}
 }
