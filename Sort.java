@@ -252,10 +252,45 @@ public class Sort {
 
 	public static void radixSort(String[] arr) {
 		int[] intArr = new int[arr.length];
-		Queue<Integer>[] digitQueues = (Queue<Integer>[])(new Queue[10]);
+		int greatestNumDigits = 0;
+		Queue<Integer>[] digitQueues = (Queue<Integer>[])(new Object[10]);
+		// fill digitQueues with Queue objects
+		for(int digVal = 0; digVal < 10; digVal++) {
+			digitQueues[digVal] = new Queue<Integer>();
+		}
+		
+		// find the highest place value
+		for(int i = 0; i < arr.length; i++) {
+			if(arr[i].length() > greatestNumDigits) {
+				greatestNumDigits = arr[i].length();
+			}
+		}
+		
 		// convert string array to integers
 		for(int i = 0; i < arr.length; i++) {
 			intArr[i] = Integer.valueOf(arr[i]);
+		}
+		
+		for(int pos = 0; pos < greatestNumDigits; pos++) {
+			int placeVal = (int)Math.pow(10, pos);
+			for(int i = 0; i < intArr.length; i++) {
+				// get the desired digit
+				int digit = 0;
+				if(arr[i].length() >= pos) {
+					digit = (intArr[i] % (placeVal + 1)) - (intArr[i] % placeVal);
+				}
+				
+				// add to the correct queue
+				digitQueues[digit].enqueue(intArr[i]);
+			}
+			
+			// replace numbers into intArr in the new order
+			int index = 0;
+			for(int digit = 0; digit < 10; digit++) {
+				while(!digitQueues[digit].isEmpty()) {
+					intArr[index] = digitQueues[digit].dequeue();
+				}
+			}
 		}
 	}
 }
