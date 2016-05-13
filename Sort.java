@@ -6,6 +6,12 @@
  *
  * java -m file.txt
  *   (for merge sort)
+ *   
+ * java -q file.txt
+ *   (for quick sort)
+ *   
+ * java -r file.txt
+ *   (for radix sort)
  *
  * @author Andy Exley
  *****************/
@@ -34,7 +40,15 @@ public class Sort {
 			sorttype = 's';
 			if(args.length < 2) { usage(); }
 			filename = args[1];
-		} else {
+		} else if(args[0].equals("-q")) {
+			sorttype = 'q';
+			if(args.length < 2) { usage(); }
+			filename = args[1];
+		} else if(args[0].equals("-r")) {
+			sorttype = 'r';
+			if(args.length < 2) { usage(); }
+			filename = args[1];
+		} else{
 			System.err.println("No sort specified, using selection sort");
 			filename = args[0];
 		}
@@ -56,6 +70,10 @@ public class Sort {
 
 		if(sorttype == 'm') {
 			mergeSort(arr);
+		} else if(sorttype == 'q') {
+			quickSort(arr);
+		} else if(sorttype == 'r') {
+			radixSort(arr);
 		} else {
 			selectionSort(arr);
 		}
@@ -193,6 +211,13 @@ public class Sort {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param arr array to be sorted
+	 * @param min minimum index in the range to be sorted 
+	 * @param max maximum index in the range to be sorted
+	 * @return the index where arr will be partitioned
+	 */
 	private static int partition(String[] arr, int min, int max) {
 		String partitionElement;
 		int l, r;
@@ -206,7 +231,7 @@ public class Sort {
 		r = max;
 		
 		while(l < r) {
-			// search for an element > partitionElement
+			// search for an element => partitionElement
 			while(l < r && arr[l].compareTo(partitionElement) <= 0) {
 				l++;
 			}
@@ -218,20 +243,58 @@ public class Sort {
 			
 			// swap elements
 			if(l < r) {
-				int tmp = l;
-				l = r;
-				r = tmp;
+				String tmp = arr[l];
+				arr[l] = arr[r];
+				arr[r] = tmp;
 			}
 		}
 		
 		// replace the partition element
-		int tmp = min;
-		min = r;
-		r = tmp;
+		String tmp = arr[min];
+		arr[min] = arr[r];
+		arr[r] = tmp;
 		return r;
 	}
 
 	public static void radixSort(String[] arr) {
+		int greatestNumDigits = 0;
+		Queue<String>[] digitQueues = (Queue<String>[])(new Queue[10]);
+		// fill digitQueues with Queue objects
+		for(int digVal = 0; digVal < 10; digVal++) {
+			digitQueues[digVal] = new Queue<String>();
+		}
 		
+		// find the highest place value
+		for(int i = 0; i < arr.length; i++) {
+			if(arr[i].length() > greatestNumDigits) {
+				greatestNumDigits = arr[i].length();
+			}
+		}
+		
+		for(int pos = 0; pos < greatestNumDigits; pos++) {
+			int placeVal = (int)(Math.pow(10, pos));
+			for(int i = 0; i < arr.length; i++) {
+				int digit = 0;
+				// isolate the desired digit
+				if(arr[i].length() > pos) {
+					digit = (Integer.valueOf(arr[i]) % (placeVal * 10)) / placeVal;
+				}
+				
+				System.out.println(arr[i] + " " + (pos + 1));
+				System.out.println(digit);
+				// add to the correct queue
+				digitQueues[digit].enqueue(arr[i]);
+				
+			}
+			System.out.println();
+			// replace numbers into intArr in the new order
+			int index = 0;
+			for(int digit = 0; digit < 10; digit++) {
+				while(!digitQueues[digit].isEmpty()) {
+					arr[index] = digitQueues[digit].dequeue();
+					index++;
+				}
+			}
+		}
 	}
 }
