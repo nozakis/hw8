@@ -20,7 +20,6 @@ public class Queue<T> {
 	
 	/**
 	 * Adds an element to the rear of the queue.
-	 * 
 	 * @param data element to be added
 	 */
 	public void enqueue(T data) {
@@ -38,7 +37,6 @@ public class Queue<T> {
 	
 	/**
 	 * Removes an element from the front of the queue and returns it.
-	 * 
 	 * @return the data contained by the removed node
 	 */
 	public T dequeue() {
@@ -50,7 +48,6 @@ public class Queue<T> {
 	
 	/**
 	 * Returns the element at the front of the queue without removing it.
-	 * 
 	 * @return the data contained by the first node
 	 */
 	public T peek() {
@@ -59,7 +56,6 @@ public class Queue<T> {
 	
 	/**
 	 * Determines if the queue is empty.
-	 * 
 	 * @return true if the queue contains no elements
 	 */
 	public boolean isEmpty() {
@@ -72,7 +68,6 @@ public class Queue<T> {
 	
 	/**
 	 * Returns the number of elements in the queue.
-	 * 
 	 * @return the number of elements in the queue
 	 */
 	public int size() {

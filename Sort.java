@@ -1,5 +1,5 @@
 /******************
- * A class that sorts file input
+ * A class that sorts file input.
  *
  * java -s file.txt
  *   (for selection sort)
@@ -193,7 +193,6 @@ public class Sort {
 	
 	/**
 	 * Sorts the specified array of objects using quick sort.
-	 * 
 	 * @param arr the array to be sorted
 	 */
 	public static void quickSort(String[] arr) {
@@ -212,11 +211,11 @@ public class Sort {
 	}
 	
 	/**
-	 * 
+	 * Splits the array into two parts based on the middle value.
 	 * @param arr array to be sorted
-	 * @param min minimum index in the range to be sorted 
+	 * @param min minimum index in the range to be sorted
 	 * @param max maximum index in the range to be sorted
-	 * @return the index where arr will be partitioned
+	 * @return the index where arr is partitioned
 	 */
 	private static int partition(String[] arr, int min, int max) {
 		String partitionElement;
@@ -256,15 +255,19 @@ public class Sort {
 		return r;
 	}
 
+	/**
+	 * Sorts the specified array of objects using radix sort.
+	 * @param arr array to be sorted
+	 */
 	public static void radixSort(String[] arr) {
-		int greatestNumDigits = 0;
 		Queue<String>[] digitQueues = (Queue<String>[])(new Queue[10]);
 		// fill digitQueues with Queue objects
-		for(int digVal = 0; digVal < 10; digVal++) {
-			digitQueues[digVal] = new Queue<String>();
+		for(int digit = 0; digit < 10; digit++) {
+			digitQueues[digit] = new Queue<String>();
 		}
 		
 		// find the highest place value
+		int greatestNumDigits = 0;
 		for(int i = 0; i < arr.length; i++) {
 			if(arr[i].length() > greatestNumDigits) {
 				greatestNumDigits = arr[i].length();
@@ -280,13 +283,10 @@ public class Sort {
 					digit = (Integer.valueOf(arr[i]) % (placeVal * 10)) / placeVal;
 				}
 				
-				System.out.println(arr[i] + " " + (pos + 1));
-				System.out.println(digit);
 				// add to the correct queue
 				digitQueues[digit].enqueue(arr[i]);
 				
 			}
-			System.out.println();
 			// replace numbers into intArr in the new order
 			int index = 0;
 			for(int digit = 0; digit < 10; digit++) {
