@@ -172,9 +172,63 @@ public class Sort {
 		}
 		return minindex;
 	}
-
+	
+	/**
+	 * Sorts the specified array of objects using quick sort.
+	 * 
+	 * @param arr the array to be sorted
+	 */
 	public static void quickSort(String[] arr) {
+		quickSort(arr, 0, arr.length - 1);
+	}
+	
+	private static void quickSort(String[] arr, int min, int max) {
+		if(min < max) {
+			// create partitions
+			int index = partition(arr, min, max);
+			// sort lower partition
+			quickSort(arr, min, index - 1);
+			// sort higher partition
+			quickSort(arr, index + 1, max);
+		}
+	}
+	
+	private static int partition(String[] arr, int min, int max) {
+		String partitionElement;
+		int l, r;
+		int mid = (min + max) / 2;
+		// use the middle element as the partition element
+		partitionElement = arr[mid];
+		// move it to the front so the rest of the array can be re-ordered
+		arr[mid] = arr[min];
+		arr[min] = partitionElement;
+		l = min;
+		r = max;
 		
+		while(l < r) {
+			// search for an element > partitionElement
+			while(l < r && arr[l].compareTo(partitionElement) <= 0) {
+				l++;
+			}
+			
+			// search for an element < partionElement
+			while(arr[r].compareTo(partitionElement) > 0) {
+				r--;
+			}
+			
+			// swap elements
+			if(l < r) {
+				int tmp = l;
+				l = r;
+				r = tmp;
+			}
+		}
+		
+		// replace the partition element
+		int tmp = min;
+		min = r;
+		r = tmp;
+		return r;
 	}
 
 	public static void radixSort(String[] arr) {
