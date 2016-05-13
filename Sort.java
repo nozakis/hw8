@@ -34,7 +34,15 @@ public class Sort {
 			sorttype = 's';
 			if(args.length < 2) { usage(); }
 			filename = args[1];
-		} else {
+		} else if(args[0].equals("-q")) {
+			sorttype = 'q';
+			if(args.length < 2) { usage(); }
+			filename = args[1];
+		} else if(args[0].equals("-r")) {
+			sorttype = 'r';
+			if(args.length < 2) { usage(); }
+			filename = args[1];
+		} else{
 			System.err.println("No sort specified, using selection sort");
 			filename = args[0];
 		}
@@ -56,6 +64,10 @@ public class Sort {
 
 		if(sorttype == 'm') {
 			mergeSort(arr);
+		} else if(sorttype == 'q') {
+			quickSort(arr);
+		} else if(sorttype == 'r') {
+			radixSort(arr);
 		} else {
 			selectionSort(arr);
 		}
