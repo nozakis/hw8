@@ -24,9 +24,15 @@ public class Queue<T> {
 	 * @param data element to be added
 	 */
 	public void enqueue(T data) {
-		Node<T> newNode = new Node<T>(data);
-		this.last.setNext(newNode);
-		this.last = this.last.getNext();
+		Node<T> oldLast = this.last;
+		this.last = new Node<T>(data);
+		
+		if(isEmpty()) {
+			this.first = this.last;
+		} else {
+			oldLast.setNext(this.last);
+		}
+		
 		this.length++;
 	}
 	
